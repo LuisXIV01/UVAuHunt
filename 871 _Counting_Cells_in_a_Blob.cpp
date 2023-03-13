@@ -23,7 +23,7 @@ int main(){
     //freopen("output.txt", "w", stdout);
     //freopen("imput.txt", "r", stdin);
     int i, j, k, c, cont, maior;
-    string text[25], te;
+    string text[26], te;
     cin >> c;
     getline(cin, te);
     cin.ignore();
