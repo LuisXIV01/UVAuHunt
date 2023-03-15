@@ -11,8 +11,13 @@ void dfs(int i, int j, int* cont){
     for(int k=0; k<4; k++){
 		x = dx[k] + i;
 		y = dy[k] + j;
+		if(adjlist[x][y] == 'T') return;
+	}
+    for(int k=0; k<4; k++){
+		x = dx[k] + i;
+		y = dy[k] + j;
 		
-		if(x >-1 and x < M and y >-1 and y < n and adjlist[x][y] == 'G' and  !vis[x][y]){
+		if(x >-1 and x < M and y >-1 and y < n and adjlist[x][y] != 'T' and adjlist[x][y] != '#' and !vis[x][y]){
 			//cout << "x = " << x << " y = " << y << '\n';
 			if(adjlist[x][y] == 'G'){
 				(*cont)++; 
@@ -20,18 +25,11 @@ void dfs(int i, int j, int* cont){
 			}
             dfs(x,y, cont);
 		}
-		else{
-			if(!caminho){
-				if(x >-1 and x < M and y >-1 and y < n and adjlist[x][y] == '.' and  !vis[x][y]){
-					dfs(x,y, cont);
-				}
-			}
-		}
     }
 }
 int main(){
     freopen("output.txt", "w", stdout);
-    freopen("imput.txt", "r", stdin);
+    freopen("input.txt", "r", stdin);
     int i, j, cont;
     
     while(cin >> n >> M){
