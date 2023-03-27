@@ -21,7 +21,7 @@ void dfs(int i, int j, int* cont){
 }
 int main(){
     freopen("output.txt", "w", stdout);
-    freopen("imput.txt", "r", stdin);
+    freopen("input.txt", "r", stdin);
     int i, j, k, c, cont;
     string text, te, pq;
     cin >> c;
