@@ -2,7 +2,7 @@
 using namespace std;
 #define N 100
 bool vis[N][N];
-char adjlist[N][N], l;
+char adjlist[N][N];
 int dx[] = {-1,0,1,0,-1,-1,1,1};
 int dy[] = {0,1,0,-1,1,-1,-1,1};
 int x, y, tlin, tcol;
@@ -12,7 +12,7 @@ void dfs(int i, int j, int* cont){
 		x = dx[k] + i;
 		y = dy[k] + j;
 		
-        if(x >-1 and x < tlin and y >-1 and y < tcol and adjlist[x][y] != l and !vis[x][y]){
+        if(x >-1 and x < tlin and y >-1 and y < tcol and adjlist[x][y] == 'W' and !vis[x][y]){
 			//cout << "x = " << x << " y = " << y << '\n';
 			(*cont)++;
             dfs(x,y, cont);
@@ -20,8 +20,8 @@ void dfs(int i, int j, int* cont){
     }
 }
 int main(){
-    freopen("output.txt", "w", stdout);
-    freopen("input.txt", "r", stdin);
+    //~ freopen("output.txt", "w", stdout);
+    //~ freopen("input.txt", "r", stdin);
     int i, j, k, c, cont;
     string text, te, pq;
     cin >> c;
@@ -46,24 +46,24 @@ int main(){
 			//~ }
 			//~ cout << '\n';
 		//~ }
-		if(text[2] != ' '){
-			i = text[0] - 48;
-			j = text[2] - 48;
-			if(text.size() == 4) j = j*10 + text[3] - 48;
-		}
-		else{
-			i = text[0] - 48;
-			i *= 10 +text[1] - 48;
-			j = text[3] - 48;
-			if(text.size() == 5) j = j*10 + text[4] - 48;
-		}
-		l = adjlist[0][0];
+		//l = adjlist[0][0];
+		//cout << l;
 		while(text != "\0"){
-			
+			if(text[2] != ' '){
+				i = text[0] - 48;
+				j = text[2] - 48;
+				if(text.size() == 4) j = j*10 + text[3] - 48;
+			}
+			else{
+				i = text[0] - 48;
+				i = i*10 + text[1] - 48;
+				j = text[3] - 48;
+				if(text.size() == 5) j = j*10 + text[4] - 48;
+			}
 			//cout << i-1 << " " << j-1 << adjlist[i-1][j-1] << ' ' << text << ' ';
 			cont =0;
 			cont++;
-			if(l != adjlist[i-1][j-1]){
+			if('W' == adjlist[i-1][j-1]){
 				dfs(i-1, j-1, &cont);
 			}
 			
@@ -76,17 +76,7 @@ int main(){
 			//cout << " = " << text << '\n';
 			getline(cin,text);
 			//cin.ignore();
-			if(text[2] != ' '){
-				i = text[0] - 48;
-				j = text[2] - 48;
-				if(text.size() == 4) j = j*10 + text[3] - 48;
-			}
-			else{
-				i = text[0] - 48;
-				i = i*10 + text[1] - 48;
-				j = text[3] - 48;
-				if(text.size() == 5) j = j*10 + text[4] - 48;
-			}
+			
 		}
 		
 		for(i=0; i<tlin; ++i){
