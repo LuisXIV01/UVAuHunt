@@ -12,7 +12,7 @@ void dfs(int i, int j, int* cont){
 		x = dx[k] + i;
 		y = dy[k] + j;
 		
-        if(x >-1 and x < tlin and y >-1 and y < tcol and adjlist[x][y] == l and !vis[x][y]){
+        if(x >-1 and x < tlin and y >-1 and y < tcol and adjlist[x][y] != l and !vis[x][y]){
 			//cout << "x = " << x << " y = " << y << '\n';
 			(*cont)++;
             dfs(x,y, cont);
@@ -55,15 +55,15 @@ int main(){
 			i = text[0] - 48;
 			i *= 10 +text[1] - 48;
 			j = text[3] - 48;
-			if(text.size() == 5) j = j*10 + text[3] - 48;
+			if(text.size() == 5) j = j*10 + text[4] - 48;
 		}
-		l = adjlist[i-1][j-1];
+		l = adjlist[0][0];
 		while(text != "\0"){
 			
-			//cout << "i = " << i-1 << " j = " << j-1 << adjlist[i-1][j-1] << ' ';
+			//cout << i-1 << " " << j-1 << adjlist[i-1][j-1] << ' ' << text << ' ';
 			cont =0;
 			cont++;
-			if(l == adjlist[i-1][j-1]){
+			if(l != adjlist[i-1][j-1]){
 				dfs(i-1, j-1, &cont);
 			}
 			
@@ -83,9 +83,9 @@ int main(){
 			}
 			else{
 				i = text[0] - 48;
-				i *= 10 +text[1] - 48;
+				i = i*10 + text[1] - 48;
 				j = text[3] - 48;
-				if(text.size() == 5) j = j*10 + text[3] - 48;
+				if(text.size() == 5) j = j*10 + text[4] - 48;
 			}
 		}
 		
