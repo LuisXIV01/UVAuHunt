@@ -7,25 +7,30 @@ int dx[] = {-1,0,1,0,-1,-1,1,1};
 int dy[] = {0,1,0,-1,1,-1,-1,1};
 int x, y, m, n;
 vector<int> vec;
+
 void dfs(int i, int j){
   vis[i][j] = true;
-	if(adjlist[i][j] == 'X'){
-		//cout << "oi\n";
-		bool md = true;
-		for(int k=0; k<4; k++){
-			x = dx[k] + i;
-			y = dy[k] + j;
-			if(adjlist[x][y] == 'X') md = false;
-		}
-		if(md) vec.back()++;
-	}
 	for(int k=0; k<4; k++){
 		x = dx[k] + i;
 		y = dy[k] + j;
 		
-		if(x >-1 and x < m and y >-1 and y < n and (adjlist[x][y] == 'X' or adjlist[x][y] == '*') and !vis[x][y]){
-            dfs(x,y);
+		if(x >-1 and x < m and y >-1 and y < n and !vis[x][y] and (adjlist[x][y] == 'X' or adjlist[x][y] == '*')){
+			if(adjlist[x][y] == 'X'){
+				//cout << "oi\n";
+				bool md = true;
+				for(int k=0; k<4; k++){
+					int g = dx[k] + x;
+					int h = dy[k] + y;
+					if(adjlist[g][h] == 'X') md = false;
+				}
+				if(md){
+					vec.back()++;
+					//cout << "oi ";
+				}
+			}
+         dfs(x,y);
 		}
+		
 	}	
         
 }
@@ -34,7 +39,7 @@ int main(){
     freopen("input.txt","r", stdin);
     int i, j, cont =1;
     cin >> m >> n;
-    while(m != 0 and n != 0){
+    while(m and n){
 		for(i=0; i<m; ++i){
 			for(j=0; j<n; ++j){
 				cin >> adjlist[i][j];
