@@ -8,27 +8,26 @@ int dy[] = {0,1,0,-1,1,-1,-1,1};
 int x, y, m, n;
 vector<int> vec;
 void dfs(int i, int j){
-    vis[i][j] = true;
-    
-	if(adjlist[x][y] == 'X'){
-		int k;
-		int g,h;
-		g = dx[0] + x;
-		h = dy[0] + y;
-		for(k=1; k<4 and adjlist[g][h] != 'X'; k++){
-			g = dx[k] + x;
-			h = dy[k] + y;
+  vis[i][j] = true;
+	if(adjlist[i][j] == 'X'){
+		//cout << "oi\n";
+		bool md = true;
+		for(int k=0; k<4; k++){
+			x = dx[k] + i;
+			y = dy[k] + j;
+			if(adjlist[x][y] == 'X') md = false;
 		}
-		if(k == 4)
-			vec.front()++;
+		if(md) vec.back()++;
 	}
 	for(int k=0; k<4; k++){
 		x = dx[k] + i;
 		y = dy[k] + j;
-	}	
-        if(x >-1 and x < m and y >-1 and y < n and (adjlist[x][y] == 'X' or adjlist[x][y] == '*') and !vis[x][y]){
+		
+		if(x >-1 and x < m and y >-1 and y < n and (adjlist[x][y] == 'X' or adjlist[x][y] == '*') and !vis[x][y]){
             dfs(x,y);
 		}
+	}	
+        
 }
 int main(){
     freopen("output.txt", "w", stdout);
@@ -45,8 +44,10 @@ int main(){
 			for(j=0; j<n; ++j){
 				if(adjlist[i][j] == 'X'){
 					if(!vis[i][j]){
-						vec.push_back(1);
+						//cout << "oi ";
+						vec.push_back(0);
 						dfs(i,j);
+						
 					}
 				}
 				//cout << "aqui\n";
