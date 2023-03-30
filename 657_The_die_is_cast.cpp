@@ -10,13 +10,14 @@ vector<int> vec;
 
 void dfs(int i, int j){
   vis[i][j] = true;
+  
 	for(int k=0; k<4; k++){
 		x = dx[k] + i;
 		y = dy[k] + j;
 		
 		if(x >-1 and x < m and y >-1 and y < n and !vis[x][y] and (adjlist[x][y] == 'X' or adjlist[x][y] == '*')){
 			if(adjlist[x][y] == 'X'){
-				//cout << "oi\n";
+				cout << "x = " << x << " y = " << y << '\n';
 				bool md = true;
 				for(int k=0; k<4; k++){
 					int g = dx[k] + x;
@@ -25,7 +26,7 @@ void dfs(int i, int j){
 				}
 				if(md){
 					vec.back()++;
-					//cout << "oi ";
+					cout << "conta mais 1\n";
 				}
 			}
          dfs(x,y);
@@ -37,9 +38,10 @@ void dfs(int i, int j){
 int main(){
     freopen("output.txt", "w", stdout);
     freopen("input.txt","r", stdin);
-    int i, j, cont =1;
-    cin >> m >> n;
+    int i, j, cont =0;
+    cin >> n >> m;
     while(m and n){
+		if(cont) cout << '\n';
 		for(i=0; i<m; ++i){
 			for(j=0; j<n; ++j){
 				cin >> adjlist[i][j];
@@ -47,10 +49,16 @@ int main(){
 		}
 		for(i=0; i<m; ++i){
 			for(j=0; j<n; ++j){
+				cout << adjlist[i][j];
+			}
+			cout << '\n';
+		}
+		for(i=0; i<m; ++i){
+			for(j=0; j<n; ++j){
 				if(adjlist[i][j] == 'X'){
 					if(!vis[i][j]){
-						//cout << "oi ";
-						vec.push_back(0);
+						//cout << "Fora x = " << x << " y = " << y << '\n';
+						vec.push_back(1);
 						dfs(i,j);
 						
 					}
@@ -59,9 +67,10 @@ int main(){
 			}
 		}
 		sort(vec.begin(), vec.end());
-		cout << cont << '\n';
-		for(i=0; i<vec.size(); i++)
+		cout << "Throw " << cont+1 << '\n';
+		for(i=0; i<vec.size()-1; i++)
 			cout << vec[i] << ' ';
+		cout << vec[i] << '\n';
 		cont++;
 		while(!vec.empty())
 			vec.pop_back();
@@ -70,6 +79,6 @@ int main(){
 				vis[i][j] = false;
 			}
 		}
-		cin >> m >> n;
+		cin >> n >> m;
 	}
 }
