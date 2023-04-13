@@ -13,15 +13,20 @@ void bfs(int o, int TTL){
 		int tam = q.size();
 		while(tam--){
 			vis[q.front()] = true;
-			for(int i = 0; i < adj[q.front()].size(); i++)
-				q.push(adj[q.front()][i]);
+			for(int i = 0; i < adj[q.front()].size(); i++){
+				if(!vis[adj[q.front()][i]]){
+					q.push(adj[q.front()][i]);
+				}
+				
+			}
 			
 			q.pop();
 		}
 	}
 }
 int main(){
-	freopen("input.txt","r",stdin);
+	//freopen("input.txt","r",stdin);
+	//freopen("output.txt","w",stdout);
 	int n, x, y, node, TTL, caso=1;
 	while(cin >> n, n){
 		for(int i = 0; i < n; i++){
@@ -31,7 +36,7 @@ int main(){
 			vis[x] = false;
 			vis[y] = false;
 		}
-		while(cin >> node >> TTL, node and TTL){
+		while(cin >> node >> TTL, node or TTL){
 			bfs(node, TTL);
 			int cont = 0;
 			for(auto& [a, b] : vis){
