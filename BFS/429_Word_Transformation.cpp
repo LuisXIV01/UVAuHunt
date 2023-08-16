@@ -31,19 +31,20 @@ int main(){
 	
 	string a, b, c;
 	int n;
-	//~ freopen("12","w",stdout);
-	//~ freopen("input.txt", "r", stdin);
+	/*freopen("12","w",stdout);
+	freopen("input.txt", "r", stdin);*/
 	cin >> n;
 	getline(cin.ignore(),a);
 	
-	for(int i=0; i < n; i++){
+	while(n--){
 		cin >> a;
 		while(a != "*"){
 			dic[a] = {0,false};
 			cin >> a;
 		}
 		cin.ignore();
-		while(getline(cin,b) and (int)b.size() > 0){
+		getline(cin,b);
+		while((int)b.size() > 0){
 			stringstream ss;
 			ss << b;
 			ss >> b >> c;
@@ -53,6 +54,7 @@ int main(){
 				k->second.first = 0;
 				k->second.second = false;
 			}
+			getline(cin,b);
 		}
 		dic.clear();
 		if(n>0) cout<<endl;
