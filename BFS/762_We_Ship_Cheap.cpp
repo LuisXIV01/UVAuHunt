@@ -33,8 +33,11 @@ void bfs(string a){
 int main(){
 	int n;
 	string a, b;
+	bool flag=false;
 	
 	while(cin >> n){
+		if(flag) cout<<endl;
+		
 		for(int i = 0; i < n; i++){
 			cin >> a >> b;
 			adjlist[a].push_back(b);
@@ -42,13 +45,27 @@ int main(){
 		}
 		cin >> a >> b;
 		bfs(a);
-		caminho.push(b);
-		for(int i = 0; i < nivel[b]; i++){
-			caminho.push(parent[caminho.top()]);
-		}
-		while(!caminho.empty()){
-			cout << caminho.top() << ' ';
+		if(parent.count(b)){
+			caminho.push(b);
+			for(int i = 0; i < nivel[b]; i++){
+				caminho.push(parent[caminho.top()]);
+			}
+			
+			int s = caminho.size()-1;
+			for(int i=0;i<s;i++){
+				cout << caminho.top() << ' ';
+				caminho.pop();
+				cout<<caminho.top()<<endl;
+			}
 			caminho.pop();
 		}
+		else{
+			cout << "No route\n";
+		}
+		adjlist.clear();
+		parent.clear();
+		nivel.clear();
+		vis.clear();
+		flag=true;
 	}
 }
